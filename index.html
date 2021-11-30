@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freehand Playground</title>
+</head>
+<body >
+    <div class="container">
+  
+        <section>
+          <h2>"Scroll down"</h2>
+          <p>Just say scroll down and FreeHand will scroll down</p>
+        </section>
+        <section>
+          <h2>"Scroll up"</h2>
+          <p>Just say scroll up and FreeHand will scroll up</p>
+        </section>
+        <section>
+          <h2>"Left click"</h2>
+          <p>Just say left click and FreeHand will left click</p>
+          <button style="padding: 2em 4em;background-color: #2EBBB3;border-radius: 10px;border: none;color: white;font-size: 16px;font-family: cursive;" onmouseover="this.style.background='#228a85'" onmouseleave="this.style.background='#2EBBB3'" onclick="this.style.display='none'">Left Click Me</button>
+          
+        </section>
+        <section>
+          <h2 id="scrl">"Right click"</h2>
+          <p>Just say right click and FreeHand will right click</p>
+          <button style="padding: 2em 4em;background-color: #2D3B6C;border-radius: 10px;border: none;color: white;font-size: 16px;font-family: cursive;" onmouseover="this.style.background='#394a88'" onmouseleave="this.style.background='#2D3B6C'" oncontextmenu="this.style.display='none'">Right Click Me</button>
+        </section>
+        <section>
+          <h2>Congrats you did it!
+          </h2>
+          <p></p>
+        </section>
+          
+          
+        </div>
+
+
+  <style>*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+  }  
+  
+html { height: 100%; }
+body { height: 100%; }
+  
+  body{
+    font-family:  cursive;
+  }
+  .container{
+    overflow-y:auto;
+    height:100vh;
+    scroll-snap-type:y mandatory;
+  }
+  section{
+    height:100vh;
+    background-color:#2D3B6C;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    letter-spacing:4px;
+    text-align:center;
+    padding:0 2rem;
+    scroll-snap-align:start;
+  }
+  
+  section:nth-of-type(even){
+    background-color:#2EBBB3;
+  }
+  
+  h2{
+    font-size:5rem;
+    line-height:200%;
+  }
+  
+  p{
+    max-width:50ch;
+  }</style>  
+</body>
+</html>
