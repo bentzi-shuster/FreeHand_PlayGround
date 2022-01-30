@@ -8,31 +8,32 @@
 </head>
 <body >
     <div class="container">
-  
-        <section>
-          <h2>"Scroll down"</h2>
-          <p>Just say scroll down and FreeHand will scroll down</p>
+        <section style="background-color: #2D3B6C;" id="ScrollTop">
+          <h2>Welcome to FreeHand</h2>
+          <h3>Say "Scroll Down"</h3>
         </section>
-        <section>
-          <h2>"Scroll up"</h2>
-          <p>Just say scroll up and FreeHand will scroll up</p>
+
+        <section style="background-color: #2EBBB3;" id="ScrollBottom" >
+          <h3>Say "Scroll Up"</h3>
         </section>
-        <section>
+
+        <template id="left">
           <h2>"Left click"</h2>
           <p>Just say left click and FreeHand will left click</p>
-          <button style="padding: 2em 4em;background-color: #2EBBB3;border-radius: 10px;border: none;color: white;font-size: 16px;font-family: cursive;" onmouseover="this.style.background='#228a85'" onmouseleave="this.style.background='#2EBBB3'" onclick="this.style.display='none'">Left Click Me</button>
-          
-        </section>
-        <section>
+          <button style="padding: 2em 4em;background-color: #2EBBB3;border-radius: 10px;border: none;color: white;font-size: 16px;font-family: cursive;"  onmouseover="this.style.background='#228a85'" onmouseleave="this.style.background='#2D3B6C'" id="lcbutton">Left Click Me</button>  
+        </template >
+
+        <template id="right">
           <h2 id="scrl">"Right click"</h2>
           <p>Just say right click and FreeHand will right click</p>
-          <button style="padding: 2em 4em;background-color: #2D3B6C;border-radius: 10px;border: none;color: white;font-size: 16px;font-family: cursive;" onmouseover="this.style.background='#394a88'" onmouseleave="this.style.background='#2D3B6C'" oncontextmenu="this.style.display='none'">Right Click Me</button>
-        </section>
-        <section>
+          <button style="padding: 2em 4em;background-color: #2EBBB3;border-radius: 10px;border: none;color: white;font-size: 16px;font-family: cursive;" onmouseover="this.style.background='#394a88'" onmouseleave="this.style.background='#2D3B6C'" id="rcme">Right Click Me</button>
+        </template>
+
+        <template id="win">
           <h2>Congrats you did it!
           </h2>
           <p></p>
-        </section>
+        </template>
           
           
         </div>
@@ -69,17 +70,45 @@ body { height: 100%; }
     scroll-snap-align:start;
   }
   
-  section:nth-of-type(even){
-    background-color:#2EBBB3;
-  }
-  
   h2{
     font-size:5rem;
     line-height:200%;
   }
-  
+  h3{
+    font-size:4rem;
+    line-height:200%;
+  }
   p{
     max-width:50ch;
   }</style>  
+  <script>
+    document.getElementById("ScrollBottom").addEventListener("wheel",scrollupfunc)
+    function scrollupfunc(e){
+      console.log(e);
+      if(e.deltaY<0){
+        console.log("scrolling up");
+      document.getElementById("ScrollTop").innerHTML=document.getElementById("left").innerHTML;
+      document.getElementById("ScrollTop").style.backgroundColor="#2D3B6C";
+      setTimeout(() => {
+        document.body.children[0].removeChild(document.getElementById("ScrollBottom"))
+      }, 1000);
+      let leftclickButton=document.getElementById("lcbutton");
+    leftclickButton.addEventListener("click",leftclickfunc)
+    function leftclickfunc(){
+      document.getElementById("ScrollTop").style.backgroundColor="#2EBBB3";
+      console.log("left click");
+      document.getElementById("ScrollTop").innerHTML=document.getElementById("right").innerHTML;
+let rc=document.getElementById("rcme");
+rc.addEventListener("contextmenu",rightclickfunc)
+function rightclickfunc(){
+  console.log("right click");
+  document.getElementById("ScrollTop").style.backgroundColor="#2D3B6C";
+  document.getElementById("ScrollTop").innerHTML=document.getElementById("win").innerHTML;
+}
+}
+      }
+    }
+  
+  </script>
 </body>
 </html>
