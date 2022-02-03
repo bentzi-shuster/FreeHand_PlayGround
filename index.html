@@ -86,28 +86,26 @@ body { height: 100%; }
   }
   </style>  
   <script>
+   
     document.getElementById("ScrollBottom").addEventListener("wheel",scrollupfunc)
     function scrollupfunc(e){
-      console.log(e);
+    //  console.log(e);
       if(e.deltaY<0){
-        console.log("scrolling up");
+      //  console.log("scrolling up");
       document.getElementById("ScrollTop").innerHTML=document.getElementById("left").innerHTML;
       document.getElementById("ScrollTop").style.backgroundColor="#2D3B6C";
-      let cleanup = setTimeout(() => {
-        document.body.children[0].removeChild(document.getElementById("ScrollBottom"))
-        clearInterval(cleanup);
-      }, 1000);
+        intSecObs.observe(document.getElementById("ScrollBottom"));
       let leftclickButton=document.getElementById("lcbutton");
     leftclickButton.addEventListener("click",leftclickfunc)
     function leftclickfunc(){
       document.getElementById("ScrollTop").style.backgroundColor="#2EBBB3";
-      console.log("left click");
+     // console.log("left click");
       document.getElementById("ScrollTop").innerHTML=document.getElementById("right").innerHTML;
 let rc=document.getElementById("rcme");
 rc.addEventListener("contextmenu",rightclickfunc)
 function rightclickfunc(e){
   e.preventDefault();
-  console.log("right click");
+  //console.log("right click");
   document.getElementById("ScrollTop").style.backgroundColor="#2D3B6C";
     document.getElementById("ScrollTop").innerHTML=document.getElementById("globe").innerHTML;
  
@@ -115,7 +113,19 @@ function rightclickfunc(e){
 }
       }
     }
-  
+    let intSecObs= new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+       let cleanup= setInterval(()=>{
+if(!entry.isIntersecting){
+
+  document.body.children[0].removeChild(document.getElementById("ScrollBottom"))
+clearInterval(cleanup)       
+}
+        },100)       
+      });
+    },{
+      threshold:0.10
+    });
   </script>
 </body>
 </html>
