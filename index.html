@@ -10,34 +10,35 @@
     <div class="container">
         <section style="background-color: #2D3B6C;" id="ScrollTop">
           <h2>Welcome to FreeHand</h2>
-          <h3>Say "Scroll Down" to begin</h3>
+          <h3>Say "Scroll Down"</h3>
         </section>
 
         <section style="background-color: #2EBBB3;" id="ScrollBottom" >
-          <h2>"Scroll Up"</h2>
+          <h3>Say "Scroll Up"</h3>
         </section>
 
         <template id="left">
-          <h2>"Left click"</h2>
-          <button style="padding: 2em 4em;background-color: #2EBBB3;border-radius: 10px;border: none;color: white;font-size: 16px;font-family: cursive;"  onmouseover="this.style.background='#228a85'" onmouseleave="this.style.background='#2D3B6C'" id="lcbutton">Left Click Me</button>  
+          <h3>Say "Left click"</h3>
+          <button style="padding: 2em 4em;background-color: #2EBBB3;border-radius: 10px;border: none;color: white;font-size: 16px;"  onmouseover="this.style.background='#228a85'" onmouseleave="this.style.background='#2EBBB3'" id="lcbutton">Left Click Me</button>  
         </template >
 
         <template id="right">
-          <h2 id="scrl">"Right click"</h2>
-          <button style="padding: 2em 4em;background-color: #2EBBB3;border-radius: 10px;border: none;color: white;font-size: 16px;font-family: cursive;" onmouseover="this.style.background='#394a88'" onmouseleave="this.style.background='#2D3B6C'" id="rcme">Right Click Me</button>
+          <h3 id="scrl">Say "Right click"</h3>
+          <button style="padding: 2em 4em;background-color: #2EBBB3;border-radius: 10px;border: none;color: white;font-size: 16px;" onmouseover="this.style.background='#394a88'" onmouseleave="this.style.background='#2D3B6C'" id="rcme">Right Click Me</button>
         </template>
 
-        <template id="win">
-          <h2>Congrats you did it!
-          </h2>
+        <template id="globe">
+       <iframe id="earth" src="https://bentzi-shuster.github.io/spinny_head/Earth.html" frameborder="0"></iframe>
           <p></p>
         </template>
           
           
         </div>
 
-
-  <style>*{
+  <style>
+   @import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+  *{
+     font-family: 'Acme', sans-serif;
     box-sizing:border-box;
     margin:0;
     padding:0;
@@ -45,16 +46,16 @@
   
 html { height: 100%; }
 body { height: 100%; }
-  
-  body{
-    font-family:  cursive;
-  }
   .container{
+    scroll-behavior: smooth;
     overflow-y:auto;
     height:100vh;
     scroll-snap-type:y mandatory;
+    width: 100%;
   }
   section{
+    transition: all 1s ease;
+    width: 100%;
     height:100vh;
     background-color:#2D3B6C;
     color:white;
@@ -78,7 +79,12 @@ body { height: 100%; }
   }
   p{
     max-width:50ch;
-  }</style>  
+  }
+  iframe{
+    width:100vw;
+    height:100vh;
+  }
+  </style>  
   <script>
     document.getElementById("ScrollBottom").addEventListener("wheel",scrollupfunc)
     function scrollupfunc(e){
@@ -87,8 +93,9 @@ body { height: 100%; }
         console.log("scrolling up");
       document.getElementById("ScrollTop").innerHTML=document.getElementById("left").innerHTML;
       document.getElementById("ScrollTop").style.backgroundColor="#2D3B6C";
-      setTimeout(() => {
+      let cleanup = setTimeout(() => {
         document.body.children[0].removeChild(document.getElementById("ScrollBottom"))
+        clearInterval(cleanup);
       }, 1000);
       let leftclickButton=document.getElementById("lcbutton");
     leftclickButton.addEventListener("click",leftclickfunc)
@@ -98,10 +105,12 @@ body { height: 100%; }
       document.getElementById("ScrollTop").innerHTML=document.getElementById("right").innerHTML;
 let rc=document.getElementById("rcme");
 rc.addEventListener("contextmenu",rightclickfunc)
-function rightclickfunc(){
+function rightclickfunc(e){
+  e.preventDefault();
   console.log("right click");
   document.getElementById("ScrollTop").style.backgroundColor="#2D3B6C";
-  document.getElementById("ScrollTop").innerHTML=document.getElementById("win").innerHTML;
+    document.getElementById("ScrollTop").innerHTML=document.getElementById("globe").innerHTML;
+ 
 }
 }
       }
